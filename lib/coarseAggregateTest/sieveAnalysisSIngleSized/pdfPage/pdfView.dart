@@ -1,5 +1,5 @@
+import 'package:site_monitoring/coarseAggregateTest/components/pdfScreen.dart';
 import 'package:site_monitoring/coarseAggregateTest/sieveAnalysisSIngleSized/pdfPage/pdfContent.dart';
-import 'package:site_monitoring/components/pdfScreen.dart';
 import 'package:flutter/material.dart';
 
 class SieveAnalysisSigleSize extends StatefulWidget {

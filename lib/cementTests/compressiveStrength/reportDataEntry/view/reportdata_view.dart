@@ -1,6 +1,5 @@
 import 'package:site_monitoring/conf.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class ReportDataEntry extends StatefulWidget {
   @override

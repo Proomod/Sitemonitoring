@@ -1,6 +1,6 @@
 import 'package:site_monitoring/cementTests/consistencyTest/pdfPage/pdfcontent.dart';
-import 'package:site_monitoring/components/pdfScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:site_monitoring/coarseAggregateTest/components/pdfScreen.dart';
 
 class CementConsistency extends StatefulWidget {
   @override

@@ -1,6 +1,3 @@
-import 'package:site_monitoring/cementTests/cementsetting/pdfpage/pdf_viewer.dart';
-import 'package:site_monitoring/cementTests/consistencyTest/pdfPage/pdfViewer.dart';
-import 'package:site_monitoring/cementTests/finenessTest/pdfPage/pdfViewer.dart';
 import 'package:site_monitoring/coarseAggregateTest/sieveAnalysisSIngleSized/pdfPage/pdfView.dart';
 
 import 'package:site_monitoring/projectList/view/projectpage.dart';

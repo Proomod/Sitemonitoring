@@ -1,27 +1,22 @@
-import 'dart:math';
-
 import 'package:site_monitoring/cementTests/compressiveStrength/utilities/db.dart';
-import 'package:site_monitoring/cementTests/compressiveStrength/utilities/dbMigrator.dart';
-import 'package:sqflite/sqflite.dart';
 
 class CementSetting {
 //time is added in hours and minute here
 //
   final int cementSettingId;
-  final Duration t1wateraddedtime;
-  final Duration t2initialsetting;
-  final Duration t3finalsetting;
-  static final table = 'CementSetting';
-  static final columnWaterAddedTime = "waterAddedTime";
-  static final columnCementSettingId = "ID";
-  static final columninitialSetting = "Initial_setting";
-  static final columnfinalsetting = "FinalSetting";
+  String settingType;
+  int settingDateTime;
 
-  CementSetting(
-      {this.cementSettingId = 1,
-      this.t1wateraddedtime,
-      this.t2initialsetting,
-      this.t3finalsetting});
+  static final table = 'CementSetting';
+  static final columnCementSettingId = "SETTINGTIME_ID";
+  static final columnSettingType = "Setting_Type";
+  static final columnDateTime = "DateTime";
+
+  CementSetting({
+    this.cementSettingId = 1,
+    this.settingType,
+    this.settingDateTime,
+  });
 
   static final dbHelper = DatabaseHelper.instance;
 
@@ -52,19 +47,18 @@ class CementSetting {
       return List.generate(
           maps.length,
           (i) => CementSetting(
-              cementSettingId: maps[i]['$columnCementSettingId'],
-              t1wateraddedtime: maps[i]['$columnWaterAddedTime'],
-              t2initialsetting: maps[i]['$columninitialSetting'],
-              t3finalsetting: maps[i]['$columnfinalsetting']));
+                cementSettingId: maps[i]['$columnCementSettingId'],
+                settingType: maps[i]['$columnSettingType'],
+                settingDateTime: maps[i]['$columnDateTime'],
+              ));
     }
     return [];
   }
 
   static addData(CementSetting time) async {
     Map<String, dynamic> data = {
-      columnWaterAddedTime: time.t1wateraddedtime,
-      columninitialSetting: time.t2initialsetting,
-      columnfinalsetting: time.t3finalsetting
+      columnSettingType: time.settingType,
+      columnDateTime: time.settingDateTime,
     };
     int id = await dbHelper.insert(table, data);
     print('inserted row $id');

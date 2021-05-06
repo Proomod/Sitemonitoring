@@ -1,6 +1,6 @@
 import 'package:site_monitoring/coarseAggregateTest/LAAtest/pdfPage/pdfContent.dart';
-import 'package:site_monitoring/components/pdfScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:site_monitoring/coarseAggregateTest/components/pdfScreen.dart';
 
 class CoarseLAAtest extends StatefulWidget {
   @override

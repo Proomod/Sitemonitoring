@@ -1,7 +1,8 @@
 import 'package:site_monitoring/cementTests/consistencyTest/pdfPage/pdfcontent.dart';
 import 'package:site_monitoring/cementTests/finenessTest/pdfPage/pdfContent.dart';
-import 'package:site_monitoring/components/pdfScreen.dart';
+
 import 'package:flutter/material.dart';
+import 'package:site_monitoring/coarseAggregateTest/components/pdfScreen.dart';
 
 class CementFiness extends StatefulWidget {
   @override

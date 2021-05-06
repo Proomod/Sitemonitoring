@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 // import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as mt;
-import 'package:pdf/pdf.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart';
 
