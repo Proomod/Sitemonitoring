@@ -7,13 +7,13 @@ class ReportDataEntry extends StatefulWidget {
 }
 
 class _ReportDataEntryState extends State<ReportDataEntry> {
-  String sandWeight;
-  String cementWeight;
-  String normalConsistency;
-  String mixProportion;
+  String? sandWeight;
+  String? cementWeight;
+  String? normalConsistency;
+  String? mixProportion;
 
-  String sampleLocation;
-  String waterWeight;
+  String? sampleLocation;
+  String? waterWeight;
   // String cube7;
   // String cube8;
 
@@ -186,12 +186,12 @@ class _ReportDataEntryState extends State<ReportDataEntry> {
 }
 
 class ExtraDataForReport {
-  final String sandWeight;
-  final String waterWeight;
-  final String cementWeight;
-  final String normalConsistency;
-  final String mixProportion;
-  final String sampleLocation;
+  final String? sandWeight;
+  final String? waterWeight;
+  final String? cementWeight;
+  final String? normalConsistency;
+  final String? mixProportion;
+  final String? sampleLocation;
 
   ExtraDataForReport(
       {this.sandWeight,
@@ -203,8 +203,8 @@ class ExtraDataForReport {
 }
 
 class InputField extends StatefulWidget {
-  final String label;
-  final Function getCubeValue;
+  final String? label;
+  final Function? getCubeValue;
   InputField({this.label, this.getCubeValue});
 
   @override
@@ -237,7 +237,7 @@ class _InputFieldState extends State<InputField> {
         controller: _textController,
         // keyboardType: TextInputType.number,
         autofocus: true,
-        onSubmitted: this.widget.getCubeValue,
+        onSubmitted: this.widget.getCubeValue as void Function(String)?,
         textInputAction: TextInputAction.next,
         decoration: kinputFieldDecoration.copyWith(
           labelText: this.widget.label,

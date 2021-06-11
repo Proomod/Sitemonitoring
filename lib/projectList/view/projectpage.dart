@@ -57,7 +57,7 @@ class _ProjectPageContentState extends State<ProjectPageContent> {
 
 class ProjectListGrid extends StatelessWidget {
   const ProjectListGrid({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -72,7 +72,7 @@ class ProjectListGrid extends StatelessWidget {
         }
         if (state is ProjectlistSuccess) {
           List<Widget> gridChildren = [NewProject()];
-          List<Widget> projectList = state.projects
+          List<Widget> projectList = state.projects!
               .map((project) =>
                   ProjectNameButton(projectName: project.projectName))
               .toList();
@@ -90,12 +90,13 @@ class ProjectListGrid extends StatelessWidget {
                 );
               });
         }
-        print(state);
+
         if (state is ProjectlistFailure) {
           return Center(
             child: Text("Couldn't load please try again"),
           );
         }
+        return Text("Something went wrong");
       },
     );
   }

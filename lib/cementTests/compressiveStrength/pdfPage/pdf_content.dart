@@ -13,7 +13,7 @@ final ktableBorder = TableBorder.all(
 
 Future<File> pdfContent(data, extraData) async {
   final Document pdf = Document();
-  var dateNow = DateTime.tryParse(data["date_of_casting"]);
+  var dateNow = DateTime.tryParse(data["date_of_casting"])!;
   var formatteddateNow = DateFormat('yyyy-MM-dd').format(dateNow);
   var dateAfter3Days =
       DateFormat('yyyy-MM-dd').format(dateNow.add(Duration(days: 3)));
@@ -27,7 +27,7 @@ Future<File> pdfContent(data, extraData) async {
         pageFormat: PdfPageFormat.a4,
         header: (context) {
           if (context.pageNumber != 1) {
-            return null;
+            return Text('');
           }
           return Table.fromTextArray(headerCount: 3, data: [
             ["Lab in Soil Mechanics"],

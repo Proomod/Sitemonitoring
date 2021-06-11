@@ -1,9 +1,8 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 
-class RouterGenerator {
-  static Route<dynamic> generateRoute() {}
-}
+// class RouterGenerator {
+//   // static Route<dynamic> generateRoute() {}
+// }
 
 const kinputFieldDecoration = InputDecoration(
   hintStyle: TextStyle(

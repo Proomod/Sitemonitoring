@@ -105,9 +105,18 @@ class _TestListState extends State<TestList> {
                     style: TextStyle(color: Colors.white),
                   ),
                   children: [
-                    TestsContainer(testName: "LAAtest"),
-                    TestsContainer(testName: "Sieve Analysis Graded"),
-                    TestsContainer(testName: "Sieve Analysis singlesized")
+                    TestsContainer(
+                      testName: "LAAtest",
+                      onPress: () {},
+                    ),
+                    TestsContainer(
+                      testName: "Sieve Analysis Graded",
+                      onPress: () {},
+                    ),
+                    TestsContainer(
+                      testName: "Sieve Analysis singlesized",
+                      onPress: () {},
+                    )
                   ],
                 ),
               ],
@@ -128,13 +137,13 @@ class _TestListState extends State<TestList> {
 
 class TestsContainer extends StatelessWidget {
   final Function onPress;
-  final String testName;
-  TestsContainer({this.onPress, this.testName});
+  final String? testName;
+  TestsContainer({required this.onPress, this.testName});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPress,
+      onTap: onPress as void Function()?,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         decoration: BoxDecoration(
@@ -144,7 +153,7 @@ class TestsContainer extends StatelessWidget {
         alignment: Alignment.center,
         margin: EdgeInsets.all(10.0),
         child: Text(
-          testName,
+          testName!,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.white,

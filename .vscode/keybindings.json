@@ -1,0 +1,7 @@
+[
+    {
+      "key": "alt+j",
+      "command": "workbench.action.tasks.runTask",
+      "args": "new react folder and files"
+    }
+  ]

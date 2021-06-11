@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 
@@ -15,20 +14,17 @@ class AuthenticationRepository {
     final token = await storage.read(key: 'AuthKey');
     if (token == null) {
       yield AuthenticationStatus.unauthenticated;
-    } else if (token != null) {
+    } else {
       yield AuthenticationStatus.authenticated;
     }
     yield* _controller.stream;
   }
 
-  Future<void> logIn(
-      {@required String username, @required String password}) async {
-    assert(username != null);
-    assert(password != null);
-
+  Future<bool> logIn(
+      {required String username, required String password}) async {
     try {
       var res = await http.post(
-          'https://dammiapi.herokuapp.com/api/account/login/',
+          Uri.parse('(https://dammiapi.herokuapp.com/api/account/login/'),
           body: {"username": username, "password": password});
       var data = jsonDecode(res.body);
       print(data);
@@ -43,6 +39,7 @@ class AuthenticationRepository {
       print(e);
       // return false;
     }
+    return false;
 
     // await Future.delayed(
     //     Duration(milliseconds: 300),

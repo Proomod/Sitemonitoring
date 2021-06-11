@@ -17,9 +17,10 @@ class _CompressiveStrengthResultState extends State<CompressiveStrengthResult> {
     FlutterSecureStorage storage = FlutterSecureStorage();
 
     try {
-      String token = await storage.read(key: 'AuthKey');
+      String? token = await storage.read(key: 'AuthKey');
       var res = await http.get(
-          'https://dammiapi.herokuapp.com/api/tests/cementResultComp/10/',
+          Uri.parse(
+              'https://dammiapi.herokuapp.com/api/tests/cementResultComp/10/'),
           headers: {"Authorization": 'Token $token'});
       return jsonDecode(res.body);
     } catch (e) {

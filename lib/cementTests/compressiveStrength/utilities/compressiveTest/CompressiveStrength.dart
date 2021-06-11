@@ -6,11 +6,11 @@ import 'package:site_monitoring/cementTests/compressiveStrength/utilities/dbMigr
 List<CompressiveStrength> cubesList = [];
 
 class CompressiveStrength {
-  int cubeId;
-  int cubeNo;
-  int cubeDay;
-  double cubeWeight;
-  double cubeLoad;
+  int? cubeId;
+  int? cubeNo;
+  int? cubeDay;
+  double? cubeWeight;
+  double? cubeLoad;
 
   static final table = "CompressiveStrength";
   static final columnId = '_cube_id';
@@ -85,7 +85,7 @@ class CompressiveStrength {
     return await dbHelper.delete(table, columnId, cube.cubeId);
   }
 
-  static Future<int> getCubeCount() async {
+  static Future<int?> getCubeCount() async {
     return await dbHelper.queryRowCount(table);
   }
 }

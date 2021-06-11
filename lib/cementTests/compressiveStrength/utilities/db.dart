@@ -13,9 +13,9 @@ class DatabaseHelper {
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
 
-  static Database _database;
+  static Database? _database;
 
-  Future<Database> get database async {
+  Future<Database?> get database async {
     if (_database != null) return _database;
     _database = await _initDatabase();
     return _database;
@@ -40,7 +40,7 @@ class DatabaseHelper {
         upgradedScripts.keys.toList()
           ..sort()
           ..forEach((k) async {
-            var script = upgradedScripts[k];
+            var script = upgradedScripts[k]!;
             await db.execute(script);
           });
         _upgradeDbVersion(db, maxMigratedDbVersion);
@@ -52,37 +52,37 @@ class DatabaseHelper {
     DbMigrator.migrations.keys.toList()
       ..sort()
       ..forEach((k) async {
-        var script = DbMigrator.migrations[k];
+        var script = DbMigrator.migrations[k]!;
         await db.execute(script);
       });
   }
 
   Future<int> insert(String table, Map<String, dynamic> row) async {
-    Database db = await instance.database;
+    Database db = await (instance.database as FutureOr<Database>);
     return await db.insert(table, row,
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<List<Map<String, dynamic>>> queryAllRows(String table) async {
-    Database db = await instance.database;
+    Database db = await (instance.database as FutureOr<Database>);
     return await db.query(table);
   }
 
-  Future<int> queryRowCount(String table) async {
-    Database db = await instance.database;
+  Future<int?> queryRowCount(String table) async {
+    Database db = await (instance.database as FutureOr<Database>);
     return Sqflite.firstIntValue(
         await db.rawQuery('''SELECT COUNT(*) FROM $table'''));
   }
 
   Future<int> update(
       String table, String columnId, Map<String, dynamic> row) async {
-    Database db = await instance.database;
-    int id = row[columnId];
+    Database db = await (instance.database as FutureOr<Database>);
+    int? id = row[columnId];
     return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
-  Future<int> delete(String table, String columnId, int id) async {
-    Database db = await instance.database;
+  Future<int> delete(String table, String columnId, int? id) async {
+    Database db = await (instance.database as FutureOr<Database>);
     return await db.delete(table, where: '$columnId=?', whereArgs: [id]);
   }
 

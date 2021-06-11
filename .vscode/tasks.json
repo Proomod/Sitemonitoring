@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+  
+    "tasks": [
+      {
+        "label": "new tests folder and files",
+  
+        "command": "mkdir '${input:dirName}' '${input:dirName}/entryPage' '${input:dirName}/entryPage/view' '${input:dirName}/pdfPage' '${input:dirName}/resultPage' '${input:dirName}/resultPage/view'  '${input:dirName}/reportPage'  '${input:dirName}/reportPage/view' && touch '${input:dirName}/${input:dirName}.dart' '${input:dirName}/entryPage/${input:dirName}EntryPage.dart' > '${input:dirName}/resultPage/${input:dirName}resultPage.dart'",
+  
+        "type": "shell",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": false,
+          "reveal": "silent",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": false,
+          "clear": true
+        },
+     }
+  ],  
+  
+  // ........................................................................................
+    
+    "inputs": [
+  
+      {
+        "type": "promptString",
+        "id": "dirName",
+        "description": "Complete my folder name",
+        "default": "test folder to create"
+      }
+    ]
+  }
+  

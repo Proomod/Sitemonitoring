@@ -14,7 +14,7 @@ class ReportCement extends StatefulWidget {
 }
 
 class _ReportCementState extends State<ReportCement> {
-  File file;
+  File? file;
 
   @override
   void initState() {
@@ -25,17 +25,19 @@ class _ReportCementState extends State<ReportCement> {
     file = await pdfContent(reportData, extraData);
   }
 
-  Future<String> token = Future<String>.microtask(
+  Future<String?> token = Future<String?>.microtask(
       () => FlutterSecureStorage().read(key: 'AuthKey'));
-  Future<http.Response> _testdata = Future<http.Response>.microtask(() => http
-          .get('https://dammiapi.herokuapp.com/api/tests/cementReportComp/10',
-              headers: {
+  Future<http.Response> _testdata = Future<http.Response>.microtask(() =>
+      http.get(
+          Uri.parse(
+              'https://dammiapi.herokuapp.com/api/tests/cementReportComp/10'),
+          headers: {
             "Authorization":
                 "Token someting goes here which is not completed yet",
           }));
   @override
   Widget build(BuildContext context) {
-    var extraData = ModalRoute.of(context).settings.arguments;
+    var extraData = ModalRoute.of(context)!.settings.arguments;
     print(extraData);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -46,7 +48,7 @@ class _ReportCementState extends State<ReportCement> {
             List<Widget> children = [];
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-                getfileName(jsonDecode(snapshot.data.body), extraData);
+                getfileName(jsonDecode(snapshot.data!.body), extraData);
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(

@@ -3,9 +3,9 @@ import 'package:site_monitoring/cementTests/compressiveStrength/utilities/db.dar
 class CementSetting {
 //time is added in hours and minute here
 //
-  final int cementSettingId;
-  String settingType;
-  int settingDateTime;
+  final int? cementSettingId;
+  String? settingType;
+  int? settingDateTime;
 
   static final table = 'CementSetting';
   static final columnCementSettingId = "SETTINGTIME_ID";
@@ -70,7 +70,7 @@ class CementSetting {
         table, columnCementSettingId, time.cementSettingId);
   }
 
-  static Future<int> getCubeCount() async {
+  static Future<int?> getCubeCount() async {
     return await dbHelper.queryRowCount(table);
   }
 }

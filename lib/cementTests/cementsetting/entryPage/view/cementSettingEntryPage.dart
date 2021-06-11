@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
+// import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:site_monitoring/cementTests/cementsetting/utilities/CementSetting.dart';
 
 class CementSettingEntry extends StatefulWidget {
@@ -8,9 +8,9 @@ class CementSettingEntry extends StatefulWidget {
 }
 
 class _CementSettingEntryState extends State<CementSettingEntry> {
-  Future<List<CementSetting>> _settingTimes;
-  List<CementSetting> selectedTimes;
-  List<CementSetting> finalTimes;
+  Future<List<CementSetting>>? _settingTimes;
+  late List<CementSetting> selectedTimes;
+  late List<CementSetting> finalTimes;
 
   @override
   void initState() {
@@ -27,9 +27,9 @@ class _CementSettingEntryState extends State<CementSettingEntry> {
     return temp;
   }
 
-  onSelectedRow(bool selected, CementSetting time) async {
+  onSelectedRow(bool? selected, CementSetting time) async {
     setState(() {
-      if (selected) {
+      if (selected!) {
         selectedTimes.add(time);
       } else {
         selectedTimes.remove(time);
@@ -115,15 +115,15 @@ class _CementSettingEntryState extends State<CementSettingEntry> {
                                     onSelectedRow(value, data);
                                   },
                                   cells: [
-                                    DataCell(Text(data.settingType)),
+                                    DataCell(Text(data.settingType!)),
                                     DataCell(Text(
                                         DateTime.fromMillisecondsSinceEpoch(
-                                                data.settingDateTime)
+                                                data.settingDateTime!)
                                             .hour
                                             .toString())),
                                     DataCell(Text(
                                         DateTime.fromMillisecondsSinceEpoch(
-                                                data.settingDateTime)
+                                                data.settingDateTime!)
                                             .minute
                                             .toString()))
                                   ]);
@@ -202,10 +202,10 @@ class _CementSettingEntryState extends State<CementSettingEntry> {
 }
 
 class AddButton extends StatelessWidget {
-  final Function addSettingTime;
+  final Function? addSettingTime;
   const AddButton({
     this.addSettingTime,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -218,10 +218,10 @@ class AddButton extends StatelessWidget {
 
           bool isSubmitting = false;
 
-          DateTime recordTime;
+          late DateTime recordTime;
           String errorMessage;
 
-          String selectedItem;
+          String? selectedItem;
           List<String> inputItems = [
             "Water Added Time",
             "Initial Setting Time",
@@ -246,26 +246,26 @@ class AddButton extends StatelessWidget {
                                       return DropdownMenuItem<String>(
                                           value: item, child: Text(item));
                                     }).toList(),
-                                    onChanged: (value) {
+                                    onChanged: (dynamic value) {
                                       setState(() {
                                         selectedItem = value;
                                         print(selectedItem);
                                       });
                                     },
                                   ),
-                                  TimePickerSpinner(
-                                    time: DateTime.now(),
-                                    normalTextStyle: TextStyle(fontSize: 12),
-                                    highlightedTextStyle: TextStyle(
-                                        fontSize: 16.0, color: Colors.blue),
-                                    spacing: 10.0,
-                                    itemHeight: 20,
-                                    onTimeChange: (time) {
-                                      setState(() {
-                                        recordTime = time;
-                                      });
-                                    },
-                                  ),
+                                  // TimePickerSpinner(
+                                  //   time: DateTime.now(),
+                                  //   normalTextStyle: TextStyle(fontSize: 12),
+                                  //   highlightedTextStyle: TextStyle(
+                                  //       fontSize: 16.0, color: Colors.blue),
+                                  //   spacing: 10.0,
+                                  //   itemHeight: 20,
+                                  //   onTimeChange: (time) {
+                                  //     setState(() {
+                                  //       recordTime = time;
+                                  //     });
+                                  //   },
+                                  // ),
                                 ],
                               ),
                             ],
@@ -286,6 +286,8 @@ class AddButton extends StatelessWidget {
                           onPressed: () async {
                             setState(() {
                               isSubmitting = true;
+                              recordTime = DateTime
+                                  .now(); // !wiil need to change this later
                             });
                             CementSetting cementTime = CementSetting(
                                 settingType: selectedItem,
@@ -298,7 +300,7 @@ class AddButton extends StatelessWidget {
                               print(e);
                             }
                             setState(() {
-                              addSettingTime(cementTime);
+                              addSettingTime!(cementTime);
                               isSubmitting = false;
                             });
 

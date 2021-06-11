@@ -24,13 +24,14 @@ class ProjectlistBloc extends Bloc<ProjectlistEvent, ProjectlistState> {
         var authToken = await storage.read(key: 'AuthKey');
 
         var res = await http.get(
-            'https://dammiapi.herokuapp.com/api/tests/my_projects_list/',
+            Uri.parse(
+                'https://dammiapi.herokuapp.com/api/tests/my_projects_list/'),
             headers: {'Authorization': 'Token $authToken'});
 
         if (res.statusCode == 200) {
           var projects = jsonDecode(res.body);
           print(projects);
-          List<ProjectData> updatedProjects = projects
+          List<ProjectData>? updatedProjects = projects
               .map<ProjectData>((project) => ProjectData.fromJson(project))
               .toList();
           print(updatedProjects);
@@ -46,7 +47,7 @@ class ProjectlistBloc extends Bloc<ProjectlistEvent, ProjectlistState> {
         bool successFullyCreated = await _saveProjects(event.project);
         if (successFullyCreated) {
           final List<ProjectData> updatedProjects =
-              List.from((state as ProjectlistSuccess).projects)
+              List.from((state as ProjectlistSuccess).projects!)
                 ..add(event.project);
           yield ProjectlistSuccess(updatedProjects);
         } else {
@@ -56,7 +57,7 @@ class ProjectlistBloc extends Bloc<ProjectlistEvent, ProjectlistState> {
     } else if (event is ProjectDeleted) {
       if (state is ProjectlistSuccess) {
         final updatedprojects = (state as ProjectlistSuccess)
-            .projects
+            .projects!
             .where(
                 (project) => project.projectName != event.project.projectName)
             .toList();
@@ -75,9 +76,9 @@ class ProjectlistBloc extends Bloc<ProjectlistEvent, ProjectlistState> {
       "contract_no": 23
     };
     try {
-      final String authToken = await storage.read(key: 'AuthKey');
+      final String? authToken = await storage.read(key: 'AuthKey');
       var res = await http.post(
-          'https://dammiapi.herokuapp.com/api/tests/create_project/',
+          Uri.parse('https://dammiapi.herokuapp.com/api/tests/create_project/'),
           body: jsonEncode(map),
           headers: {
             'Content-Type': 'application/json',

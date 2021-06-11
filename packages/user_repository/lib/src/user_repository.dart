@@ -7,21 +7,23 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'models/models.dart';
 
 class UserRepository {
-  User _user;
+  late User _user;
 
   Future<User> getUser() async {
     final storage = FlutterSecureStorage();
-    String token = await storage.read(key: 'AuthKey');
-    if (_user != null) return _user;
+    String? token = await storage.read(key: 'AuthKey');
 
-    var res = await http
-        .get("https://dammiapi.herokuapp.com/api/account/profile", headers: {
-      'Authorization': 'Token $token',
-    });
+    var res = await http.get(
+        Uri.parse("https://dammiapi.herokuapp.com/api/account/profile"),
+        headers: {
+          'Authorization': 'Token $token',
+        });
     var data = json.decode(res.body);
     if (res.statusCode == 200) {
       _user = User(
           email: data['email'], id: Uuid().v4(), userName: data['username']);
+    } else {
+      _user = User.empty;
     }
     return _user;
 

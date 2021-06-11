@@ -9,10 +9,10 @@ class CompressiveStrengthEntry extends StatefulWidget {
 }
 
 class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
-  Future<List<CompressiveStrength>> _cubes;
+  Future<List<CompressiveStrength>>? _cubes;
 
-  List<CompressiveStrength> selectedCubes;
-  List<CompressiveStrength> finalCubes;
+  List<CompressiveStrength>? selectedCubes;
+  List<CompressiveStrength>? finalCubes;
   @override
   void initState() {
     selectedCubes = [];
@@ -28,13 +28,13 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
     return temp;
   }
 
-  onSelectedRow(bool selected, CompressiveStrength cube) async {
+  onSelectedRow(bool? selected, CompressiveStrength cube) async {
     setState(() {
-      if (selected) {
-        selectedCubes.add(cube);
+      if (selected!) {
+        selectedCubes!.add(cube);
         print(selectedCubes);
       } else {
-        selectedCubes.remove(cube);
+        selectedCubes!.remove(cube);
       }
     });
   }
@@ -42,16 +42,16 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
   deleteCube(cube) async {
     int id = await CompressiveStrength.deleteCubeData(cube);
     if (id != null) {
-      finalCubes.remove(cube);
-      selectedCubes.remove(cube);
+      finalCubes!.remove(cube);
+      selectedCubes!.remove(cube);
     }
   }
 
   deleteSelected() async {
     setState(() {
-      if (selectedCubes.isNotEmpty) {
+      if (selectedCubes!.isNotEmpty) {
         List<CompressiveStrength> temp = [];
-        temp.addAll(selectedCubes);
+        temp.addAll(selectedCubes!);
         for (CompressiveStrength cube in temp) {
           deleteCube(cube);
         }
@@ -104,10 +104,10 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                   tooltip: "Load of the cube ",
                 ),
               ],
-              rows: finalCubes
+              rows: finalCubes!
                   .map(
                     (cube) => DataRow(
-                      selected: selectedCubes.contains(cube),
+                      selected: selectedCubes!.contains(cube),
                       onSelectChanged: (value) {
                         print(value);
                         onSelectedRow(value, cube);
@@ -182,9 +182,9 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                     ElevatedButton(
                       child: Text("Add New Cube"),
                       onPressed: () async {
-                        List<int> temList = [];
+                        List<int?> temList = [];
 
-                        finalCubes.forEach((cube) {
+                        finalCubes!.forEach((cube) {
                           temList.add(cube.cubeNo);
                         });
                         temList = List.generate(
@@ -238,7 +238,7 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                                                     ),
                                                   )
                                                   .toList(),
-                                              onChanged: (value) {
+                                              onChanged: (dynamic value) {
                                                 setState(() {
                                                   cube.cubeDay = value;
                                                 });
@@ -271,7 +271,7 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                                                       ),
                                                     )
                                                     .toList(),
-                                                onChanged: (value) {
+                                                onChanged: (dynamic value) {
                                                   {
                                                     setState(() {
                                                       cube.cubeNo = value;
@@ -314,7 +314,7 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                                         style: TextStyle(color: Colors.blue)),
                                     onPressed: () async {
                                       setState(() {
-                                        finalCubes.add(cube);
+                                        finalCubes!.add(cube);
                                       });
                                       await CompressiveStrength.addCubeData(
                                           cube);
@@ -341,7 +341,7 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                         var primaryKey = await CompressiveStrengthProcessing(
                                 cubes: finalCubes)
                             .sendCompressiveData();
-                        finalCubes.forEach((cube) {});
+                        finalCubes!.forEach((cube) {});
                         Navigator.pushNamed(context, '/resultPage', arguments: {
                           primaryKey: primaryKey,
                         });
@@ -356,7 +356,7 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                     Padding(
                       padding: EdgeInsets.all(20.0),
                       child: OutlinedButton(
-                        child: Text("Selected ${selectedCubes.length}"),
+                        child: Text("Selected ${selectedCubes!.length}"),
                         onPressed: () => {},
                       ),
                     ),
@@ -365,10 +365,10 @@ class _CompressiveStrengthEntryState extends State<CompressiveStrengthEntry> {
                       child: OutlinedButton(
                         child: Text("Delete Selected",
                             style: TextStyle(
-                                color: selectedCubes.isEmpty
+                                color: selectedCubes!.isEmpty
                                     ? Colors.grey
                                     : Colors.red)),
-                        onPressed: selectedCubes.isEmpty
+                        onPressed: selectedCubes!.isEmpty
                             ? null
                             : () {
                                 deleteSelected();

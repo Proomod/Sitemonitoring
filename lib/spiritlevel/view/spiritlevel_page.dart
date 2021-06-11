@@ -10,13 +10,15 @@ class SpiritLevel extends StatefulWidget {
 
 class _SpiritLevelState extends State<SpiritLevel>
     with TickerProviderStateMixin {
-  StreamSubscription<GyroscopeEvent> _streamSubscription;
-  AnimationController _controller;
-  GyroscopeEvent gyroData;
+  late StreamSubscription<GyroscopeEvent> _streamSubscription;
+  late AnimationController _controller;
+  late GyroscopeEvent gyroData;
 
   @override
   void initState() {
-    _controller = AnimationController();
+    _controller = AnimationController(
+      vsync: this,
+    );
     _streamSubscription = gyroscopeEvents.listen((event) {
       setState(() {
         gyroData = event;

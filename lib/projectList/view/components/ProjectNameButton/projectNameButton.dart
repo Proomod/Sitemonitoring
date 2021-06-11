@@ -2,7 +2,7 @@ import 'package:site_monitoring/testlist/view/testlist_page.dart';
 import 'package:flutter/material.dart';
 
 class ProjectNameButton extends StatelessWidget {
-  final String projectName;
+  final String? projectName;
 
   ProjectNameButton({this.projectName});
 
@@ -52,7 +52,7 @@ class ProjectNameButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              projectName,
+              projectName!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20.0,

@@ -5,30 +5,30 @@ import 'package:site_monitoring/cementTests/compressiveStrength/utilities/compre
 
 class CompressiveStrengthProcessing {
   CompressiveStrengthProcessing({this.cubes});
-  double cube1_w;
+  double? cube1_w;
 
-  double cube2_w;
-  double cube3_w;
-  double cube4_w;
-  double cube5_w;
-  double cube6_w;
-  double cube7_w;
-  double cube8_w;
-  double cube9_w;
-  double cube1_l;
-  double cube2_l;
-  double cube3_l;
-  double cube4_l;
-  double cube5_l;
-  double cube6_l;
-  double cube7_l;
-  double cube8_l;
-  double cube9_l;
+  double? cube2_w;
+  double? cube3_w;
+  double? cube4_w;
+  double? cube5_w;
+  double? cube6_w;
+  double? cube7_w;
+  double? cube8_w;
+  double? cube9_w;
+  double? cube1_l;
+  double? cube2_l;
+  double? cube3_l;
+  double? cube4_l;
+  double? cube5_l;
+  double? cube6_l;
+  double? cube7_l;
+  double? cube8_l;
+  double? cube9_l;
 
-  List<CompressiveStrength> cubes = [];
+  List<CompressiveStrength>? cubes = [];
 
   _mapData() {
-    cubes.forEach((cube) {
+    cubes!.forEach((cube) {
       if (cube.cubeNo == 1) {
         cube1_w = cube.cubeWeight;
         cube1_l = cube.cubeLoad;
@@ -72,7 +72,8 @@ class CompressiveStrengthProcessing {
     _mapData();
     try {
       var res = await http.post(
-          'https://dammiapi.herokuapp.com/api/tests/cementCreateComp/',
+          Uri.parse(
+              'https://dammiapi.herokuapp.com/api/tests/cementCreateComp/'),
           body: {
             "cube_weight_1": "$cube1_w",
             "cube_weight_2": "$cube2_w",

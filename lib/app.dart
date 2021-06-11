@@ -1,4 +1,6 @@
-import 'package:site_monitoring/coarseAggregateTest/sieveAnalysisSIngleSized/pdfPage/pdfView.dart';
+import 'package:site_monitoring/cementTests/consistencyTest/entryPage/consistencyEntry.dart';
+import 'package:site_monitoring/cementTests/finenessTest/entryPage/view/finenessEntryPage_view.dart';
+import 'package:site_monitoring/coarseAggregateTest/sieveAnalysisSIngleSized/entryPage/view/sieveAnalysis_view.dart';
 
 import 'package:site_monitoring/projectList/view/projectpage.dart';
 import 'package:site_monitoring/spiritlevel/spiritlevel.dart';
@@ -16,12 +18,10 @@ class App extends StatelessWidget {
   final AuthenticationRepository authenticationRepository;
 
   const App(
-      {Key key,
-      @required this.userRepository,
-      @required this.authenticationRepository})
-      : assert(userRepository != null),
-        assert(authenticationRepository != null),
-        super(key: key);
+      {Key? key,
+      required this.userRepository,
+      required this.authenticationRepository})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
@@ -44,7 +44,7 @@ class AppView extends StatefulWidget {
 class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  NavigatorState get _navigator => _navigatorKey.currentState;
+  NavigatorState? get _navigator => _navigatorKey.currentState;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -68,12 +68,13 @@ class _AppViewState extends State<AppView> {
           print(state.status);
           switch (state.status) {
             case AuthenticationStatus.authenticated:
-              _navigator.pushAndRemoveUntil<void>(
-                  HomePage.route(), (route) => false);
+              _navigator!
+                  .pushAndRemoveUntil<void>(HomePage.route(), (route) => false);
               break;
             case AuthenticationStatus.unauthenticated:
-              _navigator.pushAndRemoveUntil<void>(
-                  LoginPage.route(), (route) => false);
+              _navigator!.pushNamed<void>(
+                '/cementConsistency',
+              );
               break;
             default:
               break;
@@ -83,18 +84,11 @@ class _AppViewState extends State<AppView> {
       ),
       onGenerateRoute: (_) => SplashPage.route(),
       routes: {
-        // '/compressiveReport': (context) => PdfCreator(),
         '/projectList': (context) => ProjectPage(),
-        '/cementConsistencyPdf': (context) => SieveAnalysisSigleSize(),
+        '/cementConsistency': (context) => SieveAnalysisSingleEntry(),
         '/loginPage': (context) => LoginPage(),
-        // '/signupPage': (context) => SignUpPage(),
-        // '/reportPage': (context) => ReportCement(),
         '/spiritLevelPage': (context) => SpiritLevel(),
-        // '/resultPage': (context) => CompressiveStrengthResult(),
       },
     );
   }
-
-  // ignore: non_constant_identifier_names
-  // HomeScreen() {}
 }

@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
             child: Builder(
               builder: (context) {
                 final userId = context.select(
-                    (AuthenticationBloc bloc) => bloc.state.user.userName);
+                    ((AuthenticationBloc bloc) => bloc.state.user.userName!));
                 return userId.isNotEmpty
                     ? Text(
                         'Welcome $userId',
@@ -115,9 +115,9 @@ class HomePage extends StatelessWidget {
 }
 
 class InteractiveBox extends StatelessWidget {
-  final String textName;
-  final int tagNo;
-  final Function tapFunction;
+  final String? textName;
+  final int? tagNo;
+  final Function? tapFunction;
 
   InteractiveBox({this.textName, this.tapFunction, this.tagNo});
 
@@ -125,7 +125,7 @@ class InteractiveBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: InkWell(
-        onTap: tapFunction,
+        onTap: tapFunction as void Function()?,
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -150,7 +150,7 @@ class InteractiveBox extends StatelessWidget {
               Hero(
                 tag: 'listPage$tagNo',
                 child: Text(
-                  this.textName,
+                  this.textName!,
                   style: TextStyle(
                     fontSize: 40.0,
                   ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TestButton extends StatelessWidget {
-  final String testTitle;
-  final Function action;
+  final String? testTitle;
+  final Function? action;
   const TestButton({this.testTitle, this.action});
 
   @override
@@ -13,7 +13,7 @@ class TestButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
       ),
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-      onPressed: action,
+      onPressed: action as void Function()?,
       // () {
       //   action();
       //   // showDialog(
@@ -41,7 +41,7 @@ class TestButton extends StatelessWidget {
       //   //     });
       // },,
       child: Text(
-        this.testTitle,
+        this.testTitle!,
         style: TextStyle(color: Colors.white),
       ),
     );

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewProject extends StatelessWidget {
   const NewProject({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
