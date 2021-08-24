@@ -22,7 +22,10 @@ class _LoginFormState extends State<LoginForm> {
           Scaffold.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-              content: Text("Authentication Failed "),
+              content: Text(
+                "Authentication Failed",
+                textAlign: TextAlign.center,
+              ),
             ));
         }
       },
@@ -61,11 +64,15 @@ class _LoginFormState extends State<LoginForm> {
                     color: Colors.grey,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    "Become Member",
-                    style: TextStyle(color: Colors.grey),
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, '/signupPage'),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "Become Member",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   ),
                 ),
                 Expanded(
@@ -119,10 +126,10 @@ class _LoginFormState extends State<LoginForm> {
                 // await Provider.of<AuthProvider>(context, listen: false)
                 //     .loginUser();
 
-                Navigator.popAndPushNamed(
-                  context,
-                  '/homepage',
-                );
+                // Navigator.popAndPushNamed(
+                //   context,
+                //   '/homepage',
+                // );
                 // Provider.of<AuthProvider>(context, listen: false).getuserData();
 
                 // return FutureBuilder(
@@ -238,72 +245,20 @@ class _LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : RaisedButton(
-                color: Color(0xFF6a0dad),
-                key: Key('loginForm_continue_raisedButton'),
-                child: Text("login"),
-                onPressed: state.status.isValidated
-                    ? () {
-                        context.read<LoginBloc>().add(LoginSubmitted());
-                      }
-                    : null);
+        print(state);
+        return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.blue,
+                shadowColor: Colors.red,
+                minimumSize: Size(double.infinity / 5, 40)),
+            key: Key('loginForm_continue_raisedButton'),
+            child: Text("login"),
+            onPressed: state.status.isValidated
+                ? () {
+                    context.read<LoginBloc>().add(LoginSubmitted());
+                  }
+                : () {});
       },
     );
   }
 }
-//     RaisedButton(
-//               child: Text("Login"),
-//               color: Color(0xFF6a0dad),
-//               // color: Colors.black,
-//               onPressed: () async {
-//                 // if (_formKey.currentState.validate()) {
-//                 //   // Scaffold.of(context).showSnackBar(
-//                 //   //   SnackBar(
-//                 //   //     content: Text("Processing Data"),
-//                 //   //   ),
-//                 //   // );
-//                 //   // showDialog(
-//                 //   //   context: context,
-//                 //   //   builder: (ctx) {
-//                 //   //     return Column(
-//                 //   //       mainAxisAlignment: MainAxisAlignment.center,
-//                 //   //       children: [
-//                 //   //         CircularProgressIndicator(
-//                 //   //           backgroundColor: Colors.lightBlue,
-//                 //   //         ),
-//                 //   //       ],
-//                 //   //     );
-//                 //   //   },
-//                 //   // );
-//                 //   // bool result =
-//                 //   //     await Provider.of<AuthProvider>(context, listen: false)
-//                 //   //         .attemptLogin(_username.text, _password.text);
-
-//                 //   // showDialog(
-//                 //   //   context: context,
-//                 //   //   builder: (context) {
-//                 //   //     Widget contentItem = CircularProgressIndicator();
-
-//                 //   //     return StatefulBuilder(builder: (context, setState) {
-//                 //   //       return AlertDialog(
-//                 //   //         content: result == false
-//                 //   //             ? Text('Invalid Credentials')
-//                 //   //             : contentItem,
-//                 //   //       );
-//                 //   //     });
-//                 //   //   },
-//                 //   // );
-//                 //   if (result) {
-//                 //     Navigator.popAndPushNamed(context, '/homepage');
-//                 //   } else {
-//                 //     Navigator.of(context, rootNavigator: true).pop();
-//                 //     setState(() {
-//                 //       errorText = "Invalid Credentials";
-//                 //     });
-//                   // }
-//                 }
-//               });
-//   }
-// }

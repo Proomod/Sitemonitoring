@@ -20,32 +20,30 @@ class AuthenticationRepository {
     yield* _controller.stream;
   }
 
-  Future<bool> logIn(
+  Future<void> logIn(
       {required String username, required String password}) async {
     try {
-      var res = await http.post(
-          Uri.parse('(https://dammiapi.herokuapp.com/api/account/login/'),
-          body: {"username": username, "password": password});
+      final http.Response res = await http.post(
+          Uri.parse('https://dammiapi.herokuapp.com/api/account/login/'),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode({"username": username, "password": password}));
+      print(res.statusCode);
+      print(res.body);
       var data = jsonDecode(res.body);
-      print(data);
+
       if (res.statusCode == 200) {
         _controller.add(AuthenticationStatus.authenticated);
+      } else {
+        throw Exception();
       }
       if (data['token'] != null) {
         await storage.write(key: "AuthKey", value: data['token']);
-        return true;
       }
     } catch (e) {
-      print(e);
-      // return false;
+      throw Exception(e);
     }
-    return false;
-
-    // await Future.delayed(
-    //     Duration(milliseconds: 300),
-    //     () => _controller.add(
-    //           (AuthenticationStatus.authenticated),
-    //         ));
   }
 
   logOut() async {

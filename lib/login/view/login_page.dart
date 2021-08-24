@@ -23,7 +23,7 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Stack(
-              overflow: Overflow.visible,
+              clipBehavior: Clip.none,
               children: [
                 Card(
                   color: Colors.white,

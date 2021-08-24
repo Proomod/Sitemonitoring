@@ -1,7 +1,8 @@
-import 'package:site_monitoring/cementTests/consistencyTest/entryPage/consistencyEntry.dart';
-import 'package:site_monitoring/cementTests/finenessTest/entryPage/view/finenessEntryPage_view.dart';
-import 'package:site_monitoring/coarseAggregateTest/sieveAnalysisSIngleSized/entryPage/view/sieveAnalysis_view.dart';
-
+import 'package:site_monitoring/coarseAggregateTest/SGandWAtest/pdfPage/pdfView.dart';
+import 'package:site_monitoring/fineAggregateTests/clayContent/pdfPage/pdfView.dart';
+import 'package:site_monitoring/fineAggregateTests/fineUnitWtTest/pdfPage/pdfView.dart';
+import 'package:site_monitoring/fineAggregateTests/sieveAnalysis/pdfPage/pdfView.dart';
+import 'package:site_monitoring/fineAggregateTests/specificGravity/pdfPage/pdfViewer.dart';
 import 'package:site_monitoring/projectList/view/projectpage.dart';
 import 'package:site_monitoring/spiritlevel/spiritlevel.dart';
 import 'package:site_monitoring/splash/splash.dart';
@@ -12,6 +13,7 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'authentication/authentication.dart';
 import 'home/home.dart';
 import 'login/login.dart';
+import 'signUp/signUp.dart';
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
@@ -73,7 +75,7 @@ class _AppViewState extends State<AppView> {
               break;
             case AuthenticationStatus.unauthenticated:
               _navigator!.pushNamed<void>(
-                '/cementConsistency',
+                '/loginPage',
               );
               break;
             default:
@@ -84,10 +86,11 @@ class _AppViewState extends State<AppView> {
       ),
       onGenerateRoute: (_) => SplashPage.route(),
       routes: {
-        '/projectList': (context) => ProjectPage(),
-        '/cementConsistency': (context) => SieveAnalysisSingleEntry(),
-        '/loginPage': (context) => LoginPage(),
         '/spiritLevelPage': (context) => SpiritLevel(),
+        '/projectList': (context) => ProjectPage(),
+        '/cementConsistency': (context) => SieveAnalysisTestPdf(),
+        '/loginPage': (context) => LoginPage(),
+        '/signupPage': (context) => SignUpPage()
       },
     );
   }

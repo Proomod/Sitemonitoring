@@ -28,7 +28,6 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
     AuthenticationEvent event,
   ) async* {
-    // TODO: implement mapEventToState
     if (event is AuthenticationStatusChanged) {
       yield await _mapAuthenticationStatusChangedToState(event);
     } else if (event is AuthenticationLogoutRequested) {
@@ -51,7 +50,7 @@ class AuthenticationBloc
         return AuthenticationState.unauthenticated();
       case AuthenticationStatus.authenticated:
         final User user = await _tryGetUser();
-        return user != null
+        return user.isNotEmpty
             ? AuthenticationState.authenticated(user)
             : const AuthenticationState.unauthenticated();
 

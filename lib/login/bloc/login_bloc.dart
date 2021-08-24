@@ -13,7 +13,7 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required AuthenticationRepository authenticationRepository,
-  })   : _authenticationRepository = authenticationRepository,
+  })  : _authenticationRepository = authenticationRepository,
         super(const LoginState());
 
   final AuthenticationRepository _authenticationRepository;
@@ -52,7 +52,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         await _authenticationRepository.logIn(
           username: state.username.value,
-          password: state.password.value!,
+          password: state.password.value,
         );
         yield state.copyWith(status: FormzStatus.submissionSuccess);
       } on Exception catch (_) {

@@ -151,7 +151,7 @@ class _DataEntryTextField extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "Wt of Cement Sample",
+          name,
         ),
         SizedBox(
           width: 60.0,
